@@ -21,6 +21,7 @@ function FileUploadSingle() {
         requestOptions
       );
       setDict(await response.json());
+      console.log(dict);
     } catch (err) {
       setDict({ err });
     } finally {
@@ -39,7 +40,11 @@ function FileUploadSingle() {
 
       {loading && <h2>LOADING</h2>}
       {!loading && Boolean(Object.keys(dict).length) && (
-        <p>{JSON.stringify(dict)}</p>
+        <ul>
+          {Object.entries(dict).map((key) => (
+            <li>{key}</li>
+          ))}
+        </ul>
       )}
     </div>
   );
