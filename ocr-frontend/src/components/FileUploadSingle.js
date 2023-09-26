@@ -3,8 +3,11 @@ import FileBase64 from "react-file-base64";
 
 function FileUploadSingle() {
   const [base64Img, setBase64Img] = useState("");
+  const [dict, setDict] = useState({});
+  const [loading, setLoading] = useState(false);
 
-  const handleUploadClick = () => {
+  const handleUploadClick = async () => {
+    setLoading(true);
     const requestOptions = {
       method: "POST",
       mode: "cors",
@@ -12,14 +15,17 @@ function FileUploadSingle() {
       body: base64Img,
     };
 
-    // 👇 Uploading the file using the fetch API to the server
-    fetch(
-      "https://1ejx0l22ta.execute-api.eu-north-1.amazonaws.com/dev/ocr",
-      requestOptions
-    )
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.error(err));
+    try {
+      const response = await fetch(
+        "https://1ejx0l22ta.execute-api.eu-north-1.amazonaws.com/dev/ocr",
+        requestOptions
+      );
+      setDict(await response.json());
+    } catch (err) {
+      setDict({ err });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -29,8 +35,12 @@ function FileUploadSingle() {
           setBase64Img(e.base64);
         }}
       />
-
       <button onClick={handleUploadClick}>Upload</button>
+
+      {loading && <h2>LOADING</h2>}
+      {!loading && Boolean(Object.keys(dict).length) && (
+        <p>{JSON.stringify(dict)}</p>
+      )}
     </div>
   );
 }
