@@ -7,7 +7,7 @@ plugins:
 provider:
   name: aws
   region: eu-north-1
-  timeout: 30 # optional, in seconds, default is 6
+  timeout: 90 # optional, in seconds, default is 6
 
 custom:
   pythonRequirements:

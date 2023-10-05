@@ -103,6 +103,9 @@ class OCR(MyImage):
     def processTwoColumnImg(self):
         dict_parts = []
         cols = self.separateTwoCols()
+        if len(cols) != 2:
+            raise Exception("Incorrect image. Please retry!")
+
         for idx, col in enumerate(cols):
             dict_parts.append(col.getWordsFromColumn(idx))
 
