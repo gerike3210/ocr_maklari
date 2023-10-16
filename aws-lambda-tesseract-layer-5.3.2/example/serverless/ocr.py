@@ -103,12 +103,19 @@ class OCR(MyImage):
     def processTwoColumnImg(self):
         dict_parts = []
         cols = self.separateTwoCols()
+
+        # checks is only 2 columns are generated
         if len(cols) != 2:
             raise Exception("Incorrect image. Please retry!")
 
         for idx, col in enumerate(cols):
             dict_parts.append(col.getWordsFromColumn(idx))
 
+        # checks the num of hungarian and german words
+        if len(dict_parts[0]) != len(dict_parts[1]):
+            raise Exception(
+                "Incorrect image. Please retry with good separated colums enough border around."
+            )
             # Use zip to combine the two arrays, filtering out empty keys and values
         my_dict = [(k, v) for k, v in zip(dict_parts[0], dict_parts[1]) if k and v]
 

@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { setDictS3 } from "../../utils/set-dict-s3";
 
-const Test = ({ user, dict }) => {
+const Test = ({ user, dict, error }) => {
   const [edit, setEdit] = useState(false);
-  console.log(user.username);
 
   return (
     <>
@@ -14,16 +13,20 @@ const Test = ({ user, dict }) => {
           </li>
         ))}
       </ul>
-      <button onClick={() => setEdit((prevState) => !prevState)}>
-        {edit ? "Save" : "Edit"}
-      </button>
-      <button
-        onClick={() => {
-          setDictS3(dict, user.username);
-        }}
-      >
-        Upload to S3
-      </button>
+      {!error && (
+        <>
+          <button onClick={() => setEdit((prevState) => !prevState)}>
+            {edit ? "Save" : "Edit"}
+          </button>
+          <button
+            onClick={() => {
+              setDictS3(dict, user.username);
+            }}
+          >
+            Upload to S3
+          </button>
+        </>
+      )}
     </>
   );
 };
