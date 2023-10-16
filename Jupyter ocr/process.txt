@@ -1,5 +1,0 @@
-mit kellene megcsinalni
-- ismetlodo hibak kiszurese, pl.: sich" => sichA
-- weboldal es kep tallozas
-- kapocs es egyeb zavaro tenyezok eltavolitasa
-
